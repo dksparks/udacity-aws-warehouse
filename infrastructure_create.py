@@ -16,12 +16,12 @@ role_name = config.get("IAM", "ROLE_NAME")
 cluster_identifier = config.get("CLUSTER", "CLUSTER_IDENTIFIER")
 cluster_type = config.get("CLUSTER", "CLUSTER_TYPE")
 node_type = config.get("CLUSTER", "NODE_TYPE")
-number_of_nodes = config.get("CLUSTER", "NUMBER_OF_NODES")
 
 config.read("dwh.cfg")
 db_name = config.get("CLUSTER", "DB_NAME")
 db_user = config.get("CLUSTER", "DB_USER")
 db_password = config.get("CLUSTER", "DB_PASSWORD")
+db_port = config.get("CLUSTER", "DB_PORT")
 
 
 # create iam role
@@ -77,10 +77,10 @@ try:
         ClusterIdentifier=cluster_identifier,
         ClusterType=cluster_type,
         NodeType=node_type,
-        NumberOfNodes=number_of_nodes,
         DBName=db_name,
         MasterUsername=db_user,
         MasterUserPassword=db_password,
+        Port=db_port,
         IamRoles=[role_arn],
     )
 except Exception as e:
