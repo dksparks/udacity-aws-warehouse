@@ -66,7 +66,6 @@ CREATE TABLE songplays (
     songplay_id INTEGER IDENTITY(0, 1) PRIMARY KEY,
     start_time TIMESTAMP NOT NULL DISTKEY SORTKEY,
     user_id INTEGER NOT NULL,
-    -- level is either "free" or "paid"
     level VARCHAR(20),
     song_id VARCHAR(50) NOT NULL,
     artist_id VARCHAR(50) NOT NULL,
@@ -78,7 +77,6 @@ CREATE TABLE songplays (
 
 user_table_create = """
 CREATE TABLE users (
-    -- user_id is a string in raw data
     user_id INTEGER PRIMARY KEY,
     first_name VARCHAR(50),
     last_name VARCHAR(50),
@@ -161,7 +159,10 @@ ON e.song = s.title AND e.artist = s.artist_name
 user_table_insert = """
 INSERT INTO users (
     user_id, first_name, last_name, gender, level
-) SELECT userId, firstName, lastName, gender, level
+) SELECT
+    -- staging_events.userId is a varchar(10), but it will be
+    -- implicitly cast to an integer when inserted as users.user_id
+    userId, firstName, lastName, gender, level
 FROM staging_events
 """
 
