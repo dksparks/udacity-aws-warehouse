@@ -191,12 +191,12 @@ WITH temporary_start_time AS (
     start_time, hour, day, week, month, year, weekday
 ) SELECT DISTINCT
     start_time,
-    EXTRACT(hour from start_time),
-    EXTRACT(day from start_time),
-    EXTRACT(week from start_time),
-    EXTRACT(month from start_time),
-    EXTRACT(year from start_time),
-    EXTRACT(dow from start_time)
+    EXTRACT(HOUR FROM start_time),
+    EXTRACT(DAY FROM start_time),
+    EXTRACT(WEEK FROM start_time),
+    EXTRACT(MONTH FROM start_time),
+    EXTRACT(YEAR FROM start_time),
+    EXTRACT(DOW FROM start_time)
 FROM temporary_start_time 
 """
 
