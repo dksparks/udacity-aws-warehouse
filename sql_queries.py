@@ -96,7 +96,7 @@ CREATE TABLE songs (
 """
 
 artist_table_create = """
-CREATE TABLE artists(
+CREATE TABLE artists (
     artist_id VARCHAR(50) PRIMARY KEY,
     name VARCHAR(200),
     location VARCHAR(200),
