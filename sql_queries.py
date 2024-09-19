@@ -120,11 +120,11 @@ CREATE TABLE time (
 # STAGING TABLES
 
 staging_events_copy = """
-copy staging_events from {} iam_role {} region='us-west-2' json {}
+copy staging_events from {} iam_role {} region 'us-west-2' json {}
 """.format(log_data, iam_role_arn, log_jsonpath)
 
 staging_songs_copy = """
-copy staging_songs from {} iam_role {} region='us-west-2' json 'auto'
+copy staging_songs from {} iam_role {} region 'us-west-2' json 'auto'
 """.format(song_data, iam_role_arn)
 
 # FINAL TABLES
