@@ -7,7 +7,7 @@ import configparser
 config = configparser.ConfigParser()
 
 # get access keys from (untracked) config file
-config.read("access_keys.cfg")
+config.read("access_keys/access_keys.cfg")
 key = config.get("AWS", "KEY")
 secret = config.get("AWS", "SECRET")
 
