@@ -1,5 +1,6 @@
 import boto3
 import configparser
+import json
 
 
 # get config info
@@ -21,67 +22,67 @@ config.read("dwh.cfg")
 db_name = config.get("DB", "DB_NAME")
 db_user = config.get("DB", "DB_USER")
 db_password = config.get("DB", "DB_PASSWORD")
-db_port = config.get("DB", "DB_PORT")
+db_port = int(config.get("DB", "DB_PORT"))
 
 
-# # create iam role
+# create iam role
 
-# iam = boto3.client(
-#     "iam",
-#     region_name="us-east-1",
-#     aws_access_key_id=key,
-#     aws_secret_access_key=secret,
-# )
+iam = boto3.client(
+    "iam",
+    region_name="us-east-1",
+    aws_access_key_id=key,
+    aws_secret_access_key=secret,
+)
 
-# try:
-#     iam.create_role(
-#         Path="/",
-#         RoleName=role_name,
-#         AssumeRolePolicyDocument=json.dumps(
-#             {
-#                 "Statement": [
-#                     {
-#                         "Action": "sts:AssumeRole",
-#                         "Effect": "Allow",
-#                         "Principal": {
-#                             "Service": "redshift.amazonaws.com"
-#                         },
-#                     }
-#                 ],
-#                 "Version": "2012-10-17",
-#             }
-#         ),
-#     )
-#     iam.attach_role_policy(
-#         RoleName=role_name,
-#         PolicyArn="arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess",
-#     )
-# except Exception as e:
-#     print(e)
+try:
+    iam.create_role(
+        Path="/",
+        RoleName=role_name,
+        AssumeRolePolicyDocument=json.dumps(
+            {
+                "Statement": [
+                    {
+                        "Action": "sts:AssumeRole",
+                        "Effect": "Allow",
+                        "Principal": {
+                            "Service": "redshift.amazonaws.com"
+                        },
+                    }
+                ],
+                "Version": "2012-10-17",
+            }
+        ),
+    )
+    iam.attach_role_policy(
+        RoleName=role_name,
+        PolicyArn="arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess",
+    )
+except Exception as e:
+    print(e)
 
-# role_arn = iam.get_role(RoleName=role_name)["Role"]["Arn"]
-# print(role_arn)
+role_arn = iam.get_role(RoleName=role_name)["Role"]["Arn"]
+print(role_arn)
 
 
-# # create redshift cluster
+# create redshift cluster
 
-# redshift = boto3.client(
-#     "redshift",
-#     region_name="us-east-1",
-#     aws_access_key_id=key,
-#     aws_secret_access_key=secret,
-# )
+redshift = boto3.client(
+    "redshift",
+    region_name="us-east-1",
+    aws_access_key_id=key,
+    aws_secret_access_key=secret,
+)
 
-# try:
-#     redshift.create_cluster(
-#         ClusterIdentifier=cluster_identifier,
-#         ClusterType=cluster_type,
-#         NodeType=node_type,
-#         DBName=db_name,
-#         MasterUsername=db_user,
-#         MasterUserPassword=db_password,
-#         Port=db_port,
-#         IamRoles=[role_arn],
-#     )
-# except Exception as e:
-#     print(e)
+try:
+    redshift.create_cluster(
+        ClusterIdentifier=cluster_identifier,
+        ClusterType=cluster_type,
+        NodeType=node_type,
+        DBName=db_name,
+        MasterUsername=db_user,
+        MasterUserPassword=db_password,
+        Port=db_port,
+        IamRoles=[role_arn],
+    )
+except Exception as e:
+    print(e)
