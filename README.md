@@ -327,8 +327,8 @@ The `ts` column of the `staging_events` table must be
 converted before it can be inserted as the value of
 `start_time`. Since `ts` is measured in milliseconds
 since the epoch, it must first be divided by 1000, and
-then the `TO_TIMESTAMP` function must be called on the
-result.
+the resulting number of seconds is added to the epoch
+to obtain the final result.
 
 #### Insert Query: `users`
 
@@ -359,9 +359,9 @@ table that is taken from the `staging_events` table.
 
 To do so, it first creates a temporary table named
 `temporary_start_time`. This table simply selects all
-distinct values of `TO_TIMESTAMP(ts / 1000)` from the
-`staging_events` table. This lone column in the
-temporary table is named `start_time`.
+distinct values of the appropriately converted
+timestamps from the `staging_events` table. This lone
+column in the temporary table is named `start_time`.
 
 The main part of the query then inserts values into
 the `time` table that are taken from `start_time` in

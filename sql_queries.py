@@ -140,7 +140,7 @@ INSERT INTO songplays (
     location,
     user_agent
 ) SELECT
-    TO_TIMESTAMP(e.ts / 1000),
+    TIMESTAMP 'epoch' + e.ts/1000 * INTERVAL '1 second',
     CAST(e.userId AS INTEGER),
     e.level,
     s.song_id,
@@ -183,7 +183,7 @@ FROM staging_songs
 time_table_insert = """
 WITH temporary_start_time AS (
     SELECT DISTINCT
-        TO_TIMESTAMP(ts / 1000) AS start_time
+        TIMESTAMP 'epoch' + ts/1000 * INTERVAL '1 second' AS start_time
     FROM staging_events
 ) INSERT INTO time (
     start_time, hour, day, week, month, year, weekday
