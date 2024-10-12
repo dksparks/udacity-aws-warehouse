@@ -336,8 +336,8 @@ This query inserts data into the `users` dimension
 table that is taken from the `staging_events` table.
 
 The `userId` column of `staging_events` has type
-`VARCHAR(10)`, so it will be implicitly cast to an
-`INTEGER` when inserted as `user_id` in `users`.
+`VARCHAR(10)`, so it must be cast to an `INTEGER` when
+inserted as `user_id` in `users`.
 
 #### Insert Query: `songs`
 

@@ -141,7 +141,7 @@ INSERT INTO songplays (
     user_agent
 ) SELECT
     TO_TIMESTAMP(e.ts / 1000),
-    e.userId,
+    CAST(e.userId AS INTEGER),
     e.level,
     s.song_id,
     s.artist_id,
@@ -156,9 +156,7 @@ user_table_insert = """
 INSERT INTO users (
     user_id, first_name, last_name, gender, level
 ) SELECT
-    -- staging_events.userId is a varchar(10), but it will be
-    -- implicitly cast to an integer when inserted as users.user_id
-    userId, firstName, lastName, gender, level
+    CAST(userId AS INTEGER), firstName, lastName, gender, level
 FROM staging_events
 """
 
