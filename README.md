@@ -330,14 +330,22 @@ since the epoch, it must first be divided by 1000, and
 the resulting number of seconds is added to the epoch
 to obtain the final result.
 
+This query also includes a `WHERE` clause to exclude
+events with a missing (null) song value.
+
 #### Insert Query: `users`
 
 This query inserts data into the `users` dimension
 table that is taken from the `staging_events` table.
+It uses `SELECT DISTINCT` to ensure that each user is
+represented only once.
 
 The `userId` column of `staging_events` has type
 `VARCHAR(10)`, so it must be cast to an `INTEGER` when
 inserted as `user_id` in `users`.
+
+This query also includes a `WHERE` clause to exclude
+events with a missing (null) song value.
 
 #### Insert Query: `songs`
 
@@ -347,7 +355,9 @@ table that is taken from the `staging_songs` table.
 #### Insert Query: `artists`
 
 This query inserts data into the `artists` dimension
-table that is taken from the `staging_songs` table.
+table that is taken from the `staging_songs` table. It
+uses `SELECT DISTINCT` to ensure that each artist is
+represented only once.
 
 Artists may have multiple songs in the `staging_songs`
 table, so this query uses `SELECT DISTINCT`.
@@ -356,6 +366,8 @@ table, so this query uses `SELECT DISTINCT`.
 
 This query inserts data into the `time` dimension
 table that is taken from the `staging_events` table.
+It uses `SELECT DISTINCT` to ensure that each time is
+represented only once.
 
 To do so, it first creates a temporary table named
 `temporary_start_time`. This table simply selects all
