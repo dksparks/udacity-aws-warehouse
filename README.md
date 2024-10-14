@@ -369,16 +369,14 @@ table that is taken from the `staging_events` table.
 It uses `SELECT DISTINCT` to ensure that each time is
 represented only once.
 
-To do so, it first creates a temporary table named
-`temporary_start_time`. This table simply selects all
-distinct values of the appropriately converted
-timestamps from the `staging_events` table. This lone
-column in the temporary table is named `start_time`.
+The `ts` column of the `staging_events` table must be
+converted before it can be inserted as the value of
+`start_time`. Since `ts` is measured in milliseconds
+since the epoch, it must first be divided by 1000, and
+the resulting number of seconds is added to the epoch
+to obtain the final result.
 
-The main part of the query then inserts values into
-the `time` table that are taken from `start_time` in
-the temporary table. Specifically, `start_time` itself
-is inserted, as are each of the six time components
-defined in the `time` table. Each component is
-calculated from `start_time` using the `EXTRACT`
-function, e.g., `EXTRACT(HOUR FROM start_time)`.
+In addition to `start_time` itself, the six required
+time components are calculated from `start_time` using
+the `EXTRACT` function, e.g., `EXTRACT(HOUR FROM
+start_time)`.

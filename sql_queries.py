@@ -183,21 +183,18 @@ FROM staging_songs
 """
 
 time_table_insert = """
-WITH temporary_start_time AS (
-    SELECT DISTINCT
-        TIMESTAMP 'epoch' + ts/1000 * INTERVAL '1 second' AS start_time
-    FROM staging_events
-) INSERT INTO time (
+INSERT INTO time (
     start_time, hour, day, week, month, year, weekday
 ) SELECT DISTINCT
-    start_time,
+    TIMESTAMP 'epoch' + ts/1000 * INTERVAL '1 second' AS start_time,
     EXTRACT(HOUR FROM start_time),
     EXTRACT(DAY FROM start_time),
     EXTRACT(WEEK FROM start_time),
     EXTRACT(MONTH FROM start_time),
     EXTRACT(YEAR FROM start_time),
     EXTRACT(DOW FROM start_time)
-FROM temporary_start_time 
+FROM staging_events
+WHERE song IS NOT NULL
 """
 
 # QUERY LISTS
