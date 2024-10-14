@@ -150,14 +150,16 @@ INSERT INTO songplays (
     e.userAgent
 FROM staging_events e JOIN staging_songs s
 ON e.song = s.title AND e.artist = s.artist_name
+WHERE e.song IS NOT NULL
 """
 
 user_table_insert = """
 INSERT INTO users (
     user_id, first_name, last_name, gender, level
-) SELECT
+) SELECT DISTINCT
     CAST(userId AS INTEGER), firstName, lastName, gender, level
 FROM staging_events
+WHERE song IS NOT NULL
 """
 
 song_table_insert = """
