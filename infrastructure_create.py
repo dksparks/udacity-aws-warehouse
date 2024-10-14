@@ -19,10 +19,10 @@ cluster_type = config.get("CLUSTER", "CLUSTER_TYPE")
 node_type = config.get("CLUSTER", "NODE_TYPE")
 
 config.read("dwh.cfg")
-db_name = config.get("DB", "DB_NAME")
-db_user = config.get("DB", "DB_USER")
-db_password = config.get("DB", "DB_PASSWORD")
-db_port = int(config.get("DB", "DB_PORT"))
+db_name = config.get("CLUSTER", "DB_NAME")
+db_user = config.get("CLUSTER", "DB_USER")
+db_password = config.get("CLUSTER", "DB_PASSWORD")
+db_port = int(config.get("CLUSTER", "DB_PORT"))
 
 
 # create iam role
