@@ -50,13 +50,13 @@ staging_songs_table_create = """
 CREATE TABLE staging_songs (
     artist_id VARCHAR(50),
     artist_latitude REAL,
-    artist_location VARCHAR(200),
+    artist_location VARCHAR(2000),
     artist_longitude REAL,
-    artist_name VARCHAR(200),
+    artist_name VARCHAR(1000),
     duration REAL,
     num_songs INTEGER,
     song_id VARCHAR(50) PRIMARY KEY,
-    title VARCHAR(200),
+    title VARCHAR(1000),
     year INTEGER
 )
 """
@@ -88,7 +88,7 @@ CREATE TABLE users (
 song_table_create = """
 CREATE TABLE songs (
     song_id VARCHAR(50) PRIMARY KEY,
-    title VARCHAR(200),
+    title VARCHAR(1000),
     artist_id VARCHAR(50) NOT NULL,
     year INTEGER,
     duration REAL
@@ -98,8 +98,8 @@ CREATE TABLE songs (
 artist_table_create = """
 CREATE TABLE artists (
     artist_id VARCHAR(50) PRIMARY KEY,
-    name VARCHAR(200),
-    location VARCHAR(200),
+    name VARCHAR(1000),
+    location VARCHAR(2000),
     latitude REAL,
     longitude REAL
 )

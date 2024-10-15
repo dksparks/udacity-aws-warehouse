@@ -188,9 +188,8 @@ types are self-explanatory, except for those noted
 below.
 
 - Most of the columns are of `VARCHAR` type with
-  various lengths. These lengths were chosen by
-  inspecting the raw data and choosing a length
-  several times greater than the longest value.
+  various lengths. Some of these lengths were chosen
+  to be very large in an attempt to be conservative.
 - I have designated the `song_id` column as the
   table's primary key.
 - I have specified the `duration` column as `REAL`
