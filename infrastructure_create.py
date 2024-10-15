@@ -17,6 +17,7 @@ role_name = config.get("IAM", "ROLE_NAME")
 cluster_identifier = config.get("CLUSTER", "CLUSTER_IDENTIFIER")
 cluster_type = config.get("CLUSTER", "CLUSTER_TYPE")
 node_type = config.get("CLUSTER", "NODE_TYPE")
+security_group = config.get("CLUSTER", "SECURITY_GROUP")
 
 config.read("dwh.cfg")
 db_name = config.get("CLUSTER", "DB_NAME")
@@ -83,6 +84,7 @@ try:
         MasterUserPassword=db_password,
         Port=db_port,
         IamRoles=[role_arn],
+        VpcSecurityGroupIds=[security_group],
     )
 except Exception as e:
     print(e)
