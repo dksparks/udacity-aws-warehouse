@@ -25,7 +25,7 @@ time_table_drop = "DROP TABLE IF EXISTS time"
 staging_events_table_create = """
 CREATE TABLE staging_events (
     event_id INTEGER IDENTITY(0, 1) PRIMARY KEY,
-    artist VARCHAR(200),
+    artist VARCHAR(1000),
     auth VARCHAR(50),
     firstName VARCHAR(50),
     gender VARCHAR(10),
@@ -38,7 +38,7 @@ CREATE TABLE staging_events (
     page VARCHAR(100),
     registration DECIMAL(20, 1),
     sessionId INTEGER,
-    song VARCHAR(200),
+    song VARCHAR(1000),
     status INTEGER,
     ts BIGINT,
     userAgent VARCHAR(500),

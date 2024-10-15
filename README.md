@@ -164,6 +164,10 @@ below.
   various lengths. These lengths were chosen by
   inspecting the raw data and choosing a length
   several times greater than the longest value.
+- For consistency, the lengths of the `artist` and
+  `song` columns were chosen to match the
+  corresponding columns in the song dataset, though
+  this was not strictly necessary.
 - I have specified the `length` column as `REAL`
   rather than `DECIMAL` since exact fidelity to the
   decimal representation of the song's length is not
